@@ -66,7 +66,7 @@ fragment float4 fragmentShader(VertexOut in [[stage_in]],
   brightness = max(0.0, brightness);
   
   float emission = 1.0;
-  const int SAMPLES = 50;
+  const int SAMPLES = 100;
   
   for (int i = 0; i < SAMPLES; i++) {
     float2 testPoint = uniforms.lightPosition + (pixelPos - uniforms.lightPosition) * (float(i) / float(SAMPLES));
