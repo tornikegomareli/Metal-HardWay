@@ -12,7 +12,9 @@ The implementation uses Metal for efficient GPU-based rendering and SwiftUI for 
 ### Core Components
 
 **Metal Renderer (`MetalRenderer.swift`)**
+
 **Frontend Integration (`MetalViewRepresentable.swift`)**
+
 **Shader Implementation (`Shaders.metal`)**
   - Vertex Shader: Creates a full-screen quad for rendering
   - Fragment Shader: Implements the lighting algorithm
