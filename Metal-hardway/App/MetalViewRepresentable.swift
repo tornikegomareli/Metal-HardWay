@@ -18,6 +18,12 @@ struct MetalViewRepresentable: UIViewRepresentable {
     self._currentScene = scene
     self.mtkView = MTKView()
     self.renderer = UnifiedRenderer(metalView: mtkView, initialScene: scene.wrappedValue)
+    
+    mtkView.contentScaleFactor = UIScreen.main.scale
+    mtkView.autoResizeDrawable = true
+    
+    ///TODO: Make possible to call it from outside, and not from here.
+    self.renderer?.switchScene(to: currentScene)
   }
   
   

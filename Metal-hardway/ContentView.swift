@@ -11,8 +11,7 @@ struct ContentView: View {
   @State private var currentScene: MetalScene = ParallaxScene()
 
   var body: some View {
-    VStack {
-      MetalViewRepresentable(scene: $currentScene)
-    }.ignoresSafeArea(.all)
+    MetalViewRepresentable(scene: $currentScene)
+      .ignoresSafeArea(.all)
   }
 }
