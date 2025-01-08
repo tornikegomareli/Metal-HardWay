@@ -1,32 +1,24 @@
-# Metal Pixel Lighting Renderer
+# Metal-Hardways
 
-A real-time 2D lighting system implemented using Metal, featuring dynamic light propagation, shadows, and interactive light source control.
+A repository for experimenting with Metal rendering experiments and demos for educational purposes.
 
-<img src="https://github.com/tornikegomareli/Pixelated-Lighting-Metal/blob/main/resources/pixel-lighting-demo.gif" alt="Pixel Lighting Demo" width="600" height="800">
+## Overview
+This repository contains various Metal rendering experiments implemented from scratch. The goal is to understand low-level graphics programming concepts by implementing them using Apple's Metal framework.
 
-2D lighting system where light emanates from a movable source (represented by a red dot) and interacts with the environment. 
-The implementation uses Metal for efficient GPU-based rendering and SwiftUI for the user interface.
+## Current Demos
 
-## Technical Implementation
+### 1. Pixel Lighting
+A 2D lighting system that demonstrates:
+- Real-time dynamic lighting
+- Light source controlled by touch input
+- Shadow casting from obstacles
+- Light attenuation and falloff
+- Smooth lighting transitions
 
-### Core Components
-
-**Metal Renderer (`MetalRenderer.swift`)**
-
-**Frontend Integration (`MetalViewRepresentable.swift`)**
-
-**Shader Implementation (`Shaders.metal`)**
-  - Vertex Shader: Creates a full-screen quad for rendering
-  - Fragment Shader: Implements the lighting algorithm
-
-
-### How it Works
-
-For each pixel I cast ray to the light source, stepping across roughly 100 points. 
-If any sample collides with the rectangle, I mark the pixel as shadowed. Otherwise, brightness ramps down with distance,
-but I stick with a simple linear falloff instead of the physically accurate inverse-square—visually, it’s not worth the extra overhead
-
-I add flickering to simulate an unsteady light source and apply a basic global illumination pass to bring out more detail. 
-I also soften the shadow edges by looking at how many of the 100 samples can actually reach the light.
-It’s not physically perfect, but it still looks convincing and runs efficiently in real-time.
-
+### 2. Parallax Scrolling
+A parallax scrolling effect that features:
+- Multiple scrolling layers
+- Different scroll speeds per layer
+- Texture sampling and blending
+- Smooth infinite scrolling
+- Audio Support during scrolling
