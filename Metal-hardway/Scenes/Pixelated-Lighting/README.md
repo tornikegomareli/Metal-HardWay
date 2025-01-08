@@ -7,15 +7,7 @@ A real-time 2D lighting system implemented using Metal, featuring dynamic light 
 2D lighting system where light emanates from a movable source (represented by a red dot) and interacts with the environment. 
 The implementation uses Metal for efficient GPU-based rendering and SwiftUI for the user interface.
 
-## Technical Implementation
-
-### Core Components
-
-**Metal Renderer (`MetalRenderer.swift`)**
-
-**Frontend Integration (`MetalViewRepresentable.swift`)**
-
-**Shader Implementation (`Shaders.metal`)**
+**Shader Implementation (`PixelLightingShaders.metal`)**
   - Vertex Shader: Creates a full-screen quad for rendering
   - Fragment Shader: Implements the lighting algorithm
 
