@@ -44,7 +44,7 @@ fragment float4 parallaxFragmentShader(VertexOut in [[stage_in]],
                                    address::repeat,
                                    s_address::repeat,
                                    t_address::clamp_to_edge);
-  float scrollScale = 0.001;
+  float scrollScale = 0.0005;
   
   /// Calculate UVs with proper scaling and direction
   float2 bgUV = float2(fmod(in.texCoords.x + uniforms.scrollingBack * scrollScale, 1.0),
