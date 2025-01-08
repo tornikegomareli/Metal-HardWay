@@ -72,10 +72,15 @@ class UnifiedRenderer: NSObject, MTKViewDelegate {
   }
   
   func switchScene(to scene: MetalScene) {
+    currentScene.willExitScene()
+
     currentScene = scene
     if pipelineStates[scene.name] == nil {
-      setupPipelines(metalView: MTKView())  // Create pipeline for new scene
+      setupPipelines(metalView: MTKView())
     }
+    
+    ///TODO: Setup system for changing scenes
+    currentScene.didEnterScene()
   }
   
   // MARK: - MTKViewDelegate

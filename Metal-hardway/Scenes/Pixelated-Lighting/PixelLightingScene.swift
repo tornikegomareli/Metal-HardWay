@@ -40,6 +40,12 @@ class PixelLightingScene: MetalScene {
   init(device: MTLDevice = MTLCreateSystemDefaultDevice()!) {
   }
   
+  func willExitScene() {
+  }
+  
+  func didEnterScene() {
+  }
+  
   func update() {
     lightingUniforms.time += 1.0/60.0
     

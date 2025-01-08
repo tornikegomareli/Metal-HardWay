@@ -13,8 +13,10 @@ class ParallaxScene: MetalScene {
   let name = "Parallax"
   let vertexFunctionName = "parallaxVertexShader"
   let fragmentFunctionName = "parallaxFragmentShader"
-  let screenSize = (width: 800, height: 450)
+  let screenSize = (width: 1024, height: 850)
   
+  let audioPlayer = AudioPlayer()
+
   var uniforms: ParallexUniforms = ParallexUniforms()
 
   private var backgroundTexture: MTLTexture?
@@ -34,6 +36,14 @@ class ParallaxScene: MetalScene {
       device: device,
       imageName: "cyberpunk_street_foreground"
     )
+  }
+  
+  func didEnterScene() {
+    audioPlayer.play(fileName: "pixel-art-parallex-intro-sound", shouldLoop: true)
+  }
+  
+  func willExitScene() {
+    audioPlayer.stop()
   }
   
   func update() {
