@@ -44,6 +44,7 @@ class CellularSandScene: MetalScene {
   private let cellSize: Float = 2.0
   private let gridWidth = 100
   private let gridHeight = 100
+  private var viewSize: CGSize = CGSize(width: 1, height: 1)
   
   private var gridBuffer: MTLBuffer?
   private var nextGridBuffer: MTLBuffer?
@@ -135,6 +136,10 @@ class CellularSandScene: MetalScene {
     spawnSuspendedSandAt(position: simulationUniforms.mousePosition)
   }
   
+  func setViewSize(_ size: CGSize) {
+    viewSize = size
+  }
+  
   func handleTouchEnd() {
     isMouseDown = false
     simulationUniforms.isMouseDown = 0.0
@@ -148,9 +153,8 @@ class CellularSandScene: MetalScene {
       return 
     }
     
-    let scaleFactor: Float = 1.0 / 3.0
-    let gridX = Int(position.x * scaleFactor / cellSize)
-    let gridY = Int(position.y * scaleFactor / cellSize)
+    let gridX = Int(position.x / Float(viewSize.width) * Float(gridWidth))
+    let gridY = Int(position.y / Float(viewSize.height) * Float(gridHeight))
     let brushSize = Int(simulationUniforms.brushSize)
     
     print("Spawning sand at grid position: \(gridX), \(gridY)")
@@ -203,9 +207,8 @@ class CellularSandScene: MetalScene {
   private func spawnSuspendedSandAt(position: SIMD2<Float>) {
     guard let buffer = gridBuffer else { return }
     
-    let scaleFactor: Float = 1.0 / 3.0
-    let gridX = Int(position.x * scaleFactor / cellSize)
-    let gridY = Int(position.y * scaleFactor / cellSize)
+    let gridX = Int(position.x / Float(viewSize.width) * Float(gridWidth))
+    let gridY = Int(position.y / Float(viewSize.height) * Float(gridHeight))
     let brushSize = Int(simulationUniforms.brushSize)
     
     let pointer = buffer.contents().bindMemory(to: Cell.self, capacity: gridWidth * gridHeight)
