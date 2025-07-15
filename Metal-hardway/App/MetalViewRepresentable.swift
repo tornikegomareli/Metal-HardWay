@@ -36,6 +36,9 @@ struct MetalViewRepresentable: UIViewRepresentable {
     let panGesture = UIPanGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handlePan(_:)))
     mtkView.addGestureRecognizer(panGesture)
     
+    let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleTap(_:)))
+    mtkView.addGestureRecognizer(tapGesture)
+    
     mtkView.isUserInteractionEnabled = true
     
     return mtkView
@@ -53,6 +56,15 @@ struct MetalViewRepresentable: UIViewRepresentable {
     }
     
     @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
+      let location = gesture.location(in: gesture.view)
+      parent.renderer?.updateMousePosition(location)
+      
+      if gesture.state == .ended || gesture.state == .cancelled {
+        parent.renderer?.handleMouseUp()
+      }
+    }
+    
+    @objc func handleTap(_ gesture: UITapGestureRecognizer) {
       let location = gesture.location(in: gesture.view)
       parent.renderer?.updateMousePosition(location)
     }
