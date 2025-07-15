@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-  @State private var currentScene: MetalScene = ParallaxScene()
+  @State private var currentScene: MetalScene = CellularSandScene()
 
   var body: some View {
     MetalViewRepresentable(scene: $currentScene)
