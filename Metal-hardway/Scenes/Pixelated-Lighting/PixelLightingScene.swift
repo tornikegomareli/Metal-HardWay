@@ -66,6 +66,10 @@ class PixelLightingScene: MetalScene {
     lightingUniforms.obstaclePosition = SIMD2<Float>(x, y)
   }
   
+  func setViewSize(_ size: CGSize) {
+    // Not needed for this scene
+  }
+  
   func getDebugInfo() -> String {
     return """
        FPS: \(Int(fps))
