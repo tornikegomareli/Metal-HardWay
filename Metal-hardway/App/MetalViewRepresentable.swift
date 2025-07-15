@@ -41,6 +41,7 @@ struct MetalViewRepresentable: UIViewRepresentable {
     // Switch scene when binding changes
     if let renderer = context.coordinator.renderer {
       renderer.switchScene(to: currentScene)
+      renderer.setViewSize(uiView.bounds.size)
     }
   }
   

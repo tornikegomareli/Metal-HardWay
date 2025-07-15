@@ -14,6 +14,7 @@ protocol MetalScene {
   var screenSize: (width: Int, height: Int) { get }
   func update()
   func handleTouch(_ position: CGPoint)
+  func setViewSize(_ size: CGSize)
   
   func didEnterScene()
   func willExitScene()

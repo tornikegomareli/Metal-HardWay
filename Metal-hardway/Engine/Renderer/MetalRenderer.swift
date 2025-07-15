@@ -44,6 +44,8 @@ class UnifiedRenderer: NSObject, MTKViewDelegate {
         setupPipelines(metalView: metalView)
         metalView.delegate = self
         
+        // Set initial view size
+        currentScene.setViewSize(metalView.bounds.size)
     }
     
     private func setupPipelines(metalView: MTKView) {
@@ -92,9 +94,15 @@ class UnifiedRenderer: NSObject, MTKViewDelegate {
         currentScene.didEnterScene()
     }
     
+    func setViewSize(_ size: CGSize) {
+        currentScene.setViewSize(size)
+    }
+    
     // MARK: - MTKViewDelegate
     
-    func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {}
+    func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
+        currentScene.setViewSize(size)
+    }
     
     func draw(in view: MTKView) {
         guard let commandBuffer = commandQueue.makeCommandBuffer() else { return }
