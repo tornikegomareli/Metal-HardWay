@@ -54,6 +54,10 @@ class ParallaxScene: MetalScene {
   
   func handleTouch(_ position: CGPoint) {}
   
+  func setViewSize(_ size: CGSize) {
+    // Not needed for this scene
+  }
+  
   func getTextures() -> [MTLTexture?] {
     [backgroundTexture, midgroundTexture, foregroundTexture]
   }
