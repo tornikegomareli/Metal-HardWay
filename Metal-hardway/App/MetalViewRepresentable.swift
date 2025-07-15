@@ -11,27 +11,20 @@ import MetalKit
 
 struct MetalViewRepresentable: UIViewRepresentable {
   @Binding var currentScene: MetalScene
-  private let mtkView: MTKView
-  private var renderer: UnifiedRenderer?
-  
-  init(scene: Binding<MetalScene>) {
-    self._currentScene = scene
-    self.mtkView = MTKView()
-    self.renderer = UnifiedRenderer(metalView: mtkView, initialScene: scene.wrappedValue)
-    
-    mtkView.contentScaleFactor = UIScreen.main.scale
-    mtkView.autoResizeDrawable = true
-    
-    ///TODO: Make possible to call it from outside, and not from here.
-    self.renderer?.switchScene(to: currentScene)
-  }
-  
   
   public func makeCoordinator() -> Coordinator {
-    Coordinator(self)
+    Coordinator()
   }
   
   public func makeUIView(context: Context) -> MTKView {
+    let mtkView = context.coordinator.mtkView
+    
+    if context.coordinator.renderer == nil {
+      context.coordinator.renderer = UnifiedRenderer(metalView: mtkView, initialScene: currentScene)
+      mtkView.contentScaleFactor = UIScreen.main.scale
+      mtkView.autoResizeDrawable = true
+    }
+    
     mtkView.preferredFramesPerSecond = 60
     let panGesture = UIPanGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handlePan(_:)))
     mtkView.addGestureRecognizer(panGesture)
@@ -45,28 +38,33 @@ struct MetalViewRepresentable: UIViewRepresentable {
   }
   
   public func updateUIView(_ uiView: MTKView, context: Context) {
-    // Update view if needed
+    // Switch scene when binding changes
+    if let renderer = context.coordinator.renderer {
+      renderer.switchScene(to: currentScene)
+    }
   }
   
   public class Coordinator: NSObject {
-    var parent: MetalViewRepresentable
+    let mtkView: MTKView
+    var renderer: UnifiedRenderer?
     
-    init(_ parent: MetalViewRepresentable) {
-      self.parent = parent
+    override init() {
+      self.mtkView = MTKView()
+      super.init()
     }
     
     @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
       let location = gesture.location(in: gesture.view)
-      parent.renderer?.updateMousePosition(location)
+      renderer?.updateMousePosition(location)
       
       if gesture.state == .ended || gesture.state == .cancelled {
-        parent.renderer?.handleMouseUp()
+        renderer?.handleMouseUp()
       }
     }
     
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
       let location = gesture.location(in: gesture.view)
-      parent.renderer?.updateMousePosition(location)
+      renderer?.updateMousePosition(location)
     }
   }
 }
